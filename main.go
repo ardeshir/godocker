@@ -51,6 +51,8 @@ func child() {
    cmd.Stderr = os.Stderr
    
    must(syscall.Sethostname([]byte("incontainer")))
+   // must(syscall.Chroot("/home/ec2-user"))
+   // must(os.Chdir("."))
    must(cmd.Run())
 
 
