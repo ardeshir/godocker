@@ -25,7 +25,7 @@ func main() {
 }
 
 func run() {
-   fmt.Printf("Running %v\n", os.Args[2:])
+  fmt.Printf("Parent run %v\n", os.Args[2:])
 
    cmd       := exec.Command("/proc/self/exe", append([]string{"child"}, os.Args[2:]...)...)
    cmd.Stdin  = os.Stdin
@@ -43,7 +43,7 @@ func run() {
 }
 
 func child() {
-   fmt.Printf("Running %v\n", os.Args[2:])
+   fmt.Printf("Child %v\n", os.Args[2:])
 
    cmd       := exec.Command(os.Args[2], os.Args[3:]...)
    cmd.Stdin  = os.Stdin
