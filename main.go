@@ -33,7 +33,7 @@ func run() {
    cmd.Stderr = os.Stderr
    // adding name spaces
    cmd.SysProcAttr = &syscall.SysProcAttr {
-     Cloneflags: syscall.CLONE_NEWUTS,
+     Cloneflags: syscall.CLONE_NEWUTS | syscall.CLONE_NEWPID,
    }
 
 
@@ -51,10 +51,13 @@ func child() {
    cmd.Stderr = os.Stderr
    
    must(syscall.Sethostname([]byte("incontainer")))
-   // must(syscall.Chroot("/home/ec2-user"))
-   // must(os.Chdir("."))
-   must(cmd.Run())
+   // must(syscall.Chroot("/home/ec2-user/newfs"))
+   // must(os.Chdir("/"))
+   // must(syscall.Mount("proc","proc","proc", 0, ""))
 
+   must(cmd.Run())
+   // clean up 
+   // must(syscall.Unmount("proc",0))
 
 }
 
